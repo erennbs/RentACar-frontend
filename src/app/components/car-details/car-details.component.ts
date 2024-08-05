@@ -1,24 +1,28 @@
 import { Component } from '@angular/core';
 import { ImageService } from '../../services/image.service';
 import { Image } from '../../models/image';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CarService } from '../../services/car.service';
-import { Car } from '../../models/car';
+import { CarDetails } from '../../models/carDetails';
+import { ToastrService } from 'ngx-toastr';
+import { ImagePathPipe } from '../../pipes/image-path.pipe';
 
 @Component({
   selector: 'app-car-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, ImagePathPipe],
   templateUrl: './car-details.component.html',
   styleUrl: './car-details.component.css'
 })
 export class CarDetailsComponent {
   images: Image[];
-  currentCar: Car;
+  currentCar: CarDetails;
+  currentImagePath: string;
   dataLoaded: boolean = false;
 
-  constructor(private imageService: ImageService, private carService: CarService, private activatedRoute: ActivatedRoute) {}
+  constructor(private imageService: ImageService, private carService: CarService, private activatedRoute: ActivatedRoute,
+    private toastrService: ToastrService) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -30,8 +34,9 @@ export class CarDetailsComponent {
   }
 
   getCarById(carId: number) {
-    this.carService.getCarById(carId).subscribe(response => {
+    this.carService.getDetailsById(carId).subscribe(response => {
       this.currentCar = response.data;
+      this.currentImagePath = response.data.imagePath;
       this.dataLoaded = true;
     })
   }
@@ -39,6 +44,24 @@ export class CarDetailsComponent {
   getImagesByCarId(carId: number) {
     this.imageService.getImagesByCarId(carId).subscribe(response => {
       this.images = response.data;
+    })
+  }
+
+  setCurrentImage(imagePath: string) {
+    this.currentImagePath = imagePath;
+  }
+
+  deleteCar() {
+    this.imageService.deleteByCarId(this.currentCar.id).subscribe(response => {
+      if (response.success) {
+        this.carService.deleteCar(this.currentCar.id).subscribe(response => {
+          if (response.success) {
+            this.toastrService.success('Araç başarıyla silindi', 'Silme Başarılı');
+          } else {
+            this.toastrService.error('Araç silinirken bir hata oluştu', 'Silme Başarısız');
+          }
+        })  
+      }
     })
   }
 }

@@ -1,53 +1,45 @@
-<div class="d-flex justify-content-center h-100">
-    <div *ngIf="!dataLoaded" class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
+<div *ngIf="!dataLoaded" class="spinner-border" role="status"></div>
+<div *ngIf="dataLoaded" id="car-details-card">
+    <div class="photo-section">
+        <img src="{{currentImagePath | imagePath}}" alt="car photo">
     </div>
-
-    <div *ngIf="dataLoaded" class="car-detail-holder w-50 align-self-center">
-        <div id="carouselExampleIndicators" class="carousel slide">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                <div *ngFor="let image of images" class="carousel-item active">
-                    <img src="https://localhost:44321/uploads/{{image.imagePath}}" class="d-block w-100" alt="...">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+    <div class="info-section">
+        <h3 class="mb-5">{{currentCar.carName}}</h3>
+        <div class="all-photos-section">
+            <img (click)="setCurrentImage(image.imagePath)" *ngFor="let image of images"
+                src="{{image.imagePath | imagePath}}">
         </div>
-
+        <div id="car-title"><strong>Özellikler:</strong></div>
         <div class="details">
-            <h5>{{currentCar.carName}}</h5>
-            <div class="row">
-                <div class="col">
-                    <strong>Marka:</strong> {{currentCar.brandName}}
+            <div class="info-item">
+                <div>
+                    <strong>Marka:</strong>
                 </div>
-                <div class="col">
-                    <strong>Renk:</strong> {{currentCar.colorName}}
-                </div>
+                <span>{{currentCar.brandName}}</span>
             </div>
-            <div class="row">
-                <div class="col">
-                    <strong>Yıl:</strong> {{currentCar.modelYear}}
+            <div class="info-item">
+                <div>
+                    <strong>Renk:</strong>
                 </div>
-                <div class="col">
-                    <strong>Fiyat (Günlük):</strong> {{currentCar.dailyPrice}} TL
-                </div>
+                <span>{{currentCar.colorName}}</span>
             </div>
+            <div class="info-item">
+                <div>
+                    <strong>Yıl:</strong>
+                </div>
+                <span>{{currentCar.modelYear}}</span>
+            </div>
+            <div class="info-item">
+                <div>
+                    <strong>Fiyat (Günlük):</strong>
+                </div>
+                <span>{{currentCar.dailyPrice}} TL</span>
+            </div>
+        </div>
+        <div class="button-holder">
+            <button class="btn" (click)="deleteCar()"><i class="bi bi-trash"></i></button>
+            <button routerLink="edit" class="btn"><i class="bi bi-pencil-square"></i></button>
+            <button routerLink="rent" class="btn btn-success w-100">Kirala</button>
         </div>
     </div>
 </div>

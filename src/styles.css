@@ -1,4 +1,65 @@
 /* You can add global styles to this file, and also import other style files */
 body {
   height: 100vh;
+  overflow: hidden;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+router-outlet {
+  flex: 1;
+}
+
+app-cars {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  padding: 30px 0 30px 0;
+  height: 100%;
+
+  overflow-y: auto;
+}
+
+app-car-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+
+  overflow-y: scroll;
+
+  background-color: whitesmoke;
+}
+
+app-rent {
+  display: flex;
+  justify-content: center;
+}
+
+app-brands {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+app-colors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+app-car-add {
+  display: flex;
+  justify-content: center;
+}
+
+app-car-edit {
+  display: flex;
+  justify-content: center;
 }

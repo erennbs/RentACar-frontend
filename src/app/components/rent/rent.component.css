@@ -1,0 +1,9 @@
+.payment-form {
+    width: 30%;
+}
+
+.payment-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
