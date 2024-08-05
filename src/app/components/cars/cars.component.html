@@ -1,25 +1,30 @@
-<div routerLink="/cars/{{car.id}}" *ngFor="let car of cars" class="card mb-3" style="max-width: 600px;">
-    <div class="row g-0">
-        <div class="col-md-4">
-            <img src="https://localhost:44321/uploads/{{(car.imagePath)}}" class="img-fluid rounded-start" alt="...">
-        </div>
-        <div class="col-md-8">
-            <div class="card-body row-gap-6">
-                <h5 class="card-title">{{car.carName}}</h5>
-                <div class="row">
-                    <div class="col">
-                        <strong>Marka:</strong> {{car.brandName}}
+<app-filters #filters (filterCars)="filterCars()" (resetFilters)="resetFilters()"></app-filters>
+
+<div *ngIf="!dataLoaded" class="spinner-border" role="status"></div>
+<div *ngIf="dataLoaded" id="car-list">
+    <div routerLink="/cars/{{car.id}}" *ngFor="let car of cars" class="card mb-3" style="max-width: 600px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{car.imagePath | imagePath}}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body row-gap-6">
+                    <h5 class="card-title mb-4">{{car.carName}}</h5>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <strong>Marka:</strong> {{car.brandName}}
+                        </div>
+                        <div class="col">
+                            <strong>Renk:</strong> {{car.colorName}}
+                        </div>
                     </div>
-                    <div class="col">
-                        <strong>Renk:</strong> {{car.colorName}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <strong>Yıl:</strong> {{car.modelYear}}
-                    </div>
-                    <div class="col">
-                        <strong>Fiyat (Günlük):</strong> {{car.dailyPrice}} TL
+                    <div class="row">
+                        <div class="col">
+                            <strong>Yıl:</strong> {{car.modelYear}}
+                        </div>
+                        <div class="col">
+                            <strong>Fiyat (Günlük):</strong> {{car.dailyPrice}} TL
+                        </div>
                     </div>
                 </div>
             </div>
