@@ -1,0 +1,20 @@
+<div id="filters">
+    <div>
+        <label for="brands-filter">Marka:</label>
+        <select [(ngModel)]="selectedBrand" class="form-select" id="brands-filter" aria-label="brands">
+            <option value="">Hepsi</option>
+            <option *ngFor="let brand of brands" value="{{brand.name}}">{{brand.name}}</option>
+        </select>
+    </div>
+    <div>
+        <label for="colors-filter">Renk:</label>
+        <select [(ngModel)]="selectedColor" class="form-select" id="colors-filter" aria-label="colors">
+            <option value="">Hepsi</option>
+            <option *ngFor="let color of colors" value="{{color.name}}">{{color.name}}</option>
+        </select>
+    </div>
+    <div class="buttons">
+        <button (click)="handleFilter()" class="btn btn-success">Filtrele</button>
+        <button (click)="handleReset()" class="btn btn-secondary">Sıfırla</button>
+    </div>
+</div>

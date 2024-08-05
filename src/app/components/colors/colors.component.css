@@ -1,0 +1,12 @@
+table {
+    width: 50%;
+}
+
+i {
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+i:hover {
+    background-color: whitesmoke;
+}

@@ -1,5 +1,39 @@
-<h5>Colors</h5>
-<ul class="list-group">
-    <li routerLink="/cars/color/{{color.id}}" routerLinkActive="active" class="list-group-item"
-        *ngFor="let color of colors">{{color.name}}</li>
-</ul>
+<h2>Renkler</h2>
+<table class="table table-lg">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Renk</th>
+            <th scope="col" style="width: 90px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let color of colors">
+            <td>{{color.id}}</td>
+            <td>
+                <form *ngIf="editingColor.id === color.id" [formGroup]="colorEditForm">
+                    <input type="text" class="form-control form-control-sm" id="name" formControlName="name"
+                        value="{{color.name}}">
+                </form>
+                <span *ngIf="editingColor.id !== color.id">{{color.name}}</span>
+            </td>
+            <td>
+                <i class="bi bi-pencil" (click)="activateColorEditing(color)"
+                    [hidden]="editingColor.id === color.id"></i>
+                <i class="bi bi-check-lg" (click)="editColor(color)" [hidden]="editingColor.id !== color.id"></i>
+                <i class="bi bi-trash" (click)="deleteColor(color.id)"></i>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <form [formGroup]="colorAddForm">
+                    <input type="text" class="form-control form-control-sm" formControlName="name">
+                </form>
+            </td>
+            <td>
+                <i class="bi bi-plus-lg" (click)="addColor()"></i>
+            </td>
+        </tr>
+    </tbody>
+</table>

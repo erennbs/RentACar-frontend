@@ -1,0 +1,12 @@
+#filters {
+    display: flex;
+    align-items: center;
+    width: 700px;
+    gap: 50px;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+    align-self: flex-end;
+}

@@ -1,5 +1,39 @@
-<h5>Brands</h5>
-<ul class="list-group">
-    <li routerLink="/cars/brand/{{brand.id}}" routerLinkActive="active" class="list-group-item"
-        *ngFor="let brand of brands">{{brand.name}}</li>
-</ul>
+<h2>Markalar</h2>
+<table class="table table-lg">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Marka</th>
+            <th scope="col" style="width: 90px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let brand of brands">
+            <td>{{brand.id}}</td>
+            <td>
+                <form *ngIf="editingBrand.id === brand.id" [formGroup]="brandEditForm">
+                    <input type="text" class="form-control form-control-sm" id="name" formControlName="name"
+                        value="{{brand.name}}">
+                </form>
+                <span *ngIf="editingBrand.id !== brand.id">{{brand.name}}</span>
+            </td>
+            <td>
+                <i class="bi bi-pencil" (click)="activateBrandEditing(brand)"
+                    [hidden]="editingBrand.id === brand.id"></i>
+                <i class="bi bi-check-lg" (click)="editBrand(brand)" [hidden]="editingBrand.id !== brand.id"></i>
+                <i class="bi bi-trash" (click)="deleteBrand(brand.id)"></i>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <form [formGroup]="brandAddForm">
+                    <input type="text" class="form-control form-control-sm" formControlName="name">
+                </form>
+            </td>
+            <td>
+                <i class="bi bi-plus-lg" (click)="addBrand()"></i>
+            </td>
+        </tr>
+    </tbody>
+</table>
