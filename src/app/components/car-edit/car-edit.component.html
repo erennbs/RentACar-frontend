@@ -1,0 +1,45 @@
+<div id="car-edit-holder">
+    <h2>Araç Düzenle</h2>
+    <form *ngIf="carEditForm" [formGroup]="carEditForm">
+        <div class="mb-3">
+            <label for="name" class="form-label">Araç Adı</label>
+            <input type="text" class="form-control" id="name" formControlName="description">
+        </div>
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <label for="brandId" class="form-label">Marka</label>
+                <select id="brandId" class="form-select" formControlName="brandId">
+                    <option *ngFor="let brand of brands" value="{{brand.id}}">{{brand.name}}</option>
+                </select>
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="colorId" class="form-label">Renk</label>
+                <select id="colorId" class="form-select" formControlName="colorId">
+                    <option *ngFor=" let color of colors" value="{{color.id}}">{{color.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="mb-3 col-md-6">
+                <label for="modelYear" class="form-label">Model Yılı</label>
+                <input type="number" class="form-control" id="modelYear" min="1980" formControlName="modelYear">
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="dailyPrice" class="form-label">Günlük Ücret(TL)</label>
+                <input type="number" class="form-control" id="dailyPrice" formControlName="dailyPrice">
+            </div>
+        </div>
+        <p><strong>Fotoğraflar</strong> (silmek için tıklayınız):</p>
+        <div class="images mb-3">
+            <img *ngFor="let image of images" src="{{image.imagePath | imagePath}}" (click)="deleteImage(image.id)">
+        </div>
+        <div class="mb-3">
+            <label for="images" class="form-label">Fotoğraf Ekle</label>
+            <input class="form-control" type="file" id="images" (change)="onChange($event)" accept=".png, .jpg"
+                multiple>
+        </div>
+    </form>
+    <div class="buttons">
+        <button (click)="editCar()" class="btn btn-primary">Güncelle</button>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div id="car-add-holder">
+    <h2>Araç Ekle</h2>
+    <form [formGroup]="carAddForm">
+        <div class="mb-3">
+            <label for="name" class="form-label">Araç Adı</label>
+            <input type="text" class="form-control" id="name" formControlName="description">
+        </div>
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <label for="brandId" class="form-label">Marka</label>
+                <select id="brandId" class="form-select" formControlName="brandId">
+                    <option *ngFor="let brand of brands" value="{{brand.id}}">{{brand.name}}</option>
+                </select>
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="colorId" class="form-label">Renk</label>
+                <select id="colorId" class="form-select" formControlName="colorId">
+                    <option *ngFor=" let color of colors" value="{{color.id}}">{{color.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mb-3 col-md-6">
+                <label for="modelYear" class="form-label">Model Yılı</label>
+                <input type="number" class="form-control" id="modelYear" min="1980" formControlName="modelYear">
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="dailyPrice" class="form-label">Günlük Ücret(TL)</label>
+                <input type="number" class="form-control" id="dailyPrice" formControlName="dailyPrice">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="images" class="form-label">Fotoğraflar</label>
+            <input class="form-control" type="file" id="images" (change)="onChange($event)" accept=".png, .jpg"
+                multiple>
+        </div>
+    </form>
+    <div class="buttons">
+        <button (click)="addCar()" class="btn btn-primary">Ekle</button>
+    </div>
+</div>
