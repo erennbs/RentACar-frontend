@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Payment } from '../../models/payment';
 import { RentalService } from '../../services/rental.service';
@@ -7,6 +7,7 @@ import { Rental } from '../../models/rental';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { PaymentService } from '../../services/payment.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-rent',
@@ -18,76 +19,63 @@ import { PaymentService } from '../../services/payment.service';
 export class RentComponent {
   carId: number;
   customerId: number;
-  availableDate: Date;
+
+  paymentForm: FormGroup;
+  rentalForm: FormGroup;
 
   constructor(private activatedRoute: ActivatedRoute, private rentalService: RentalService, private toastrService: ToastrService,
-    private paymentService: PaymentService
-  ) {}
+    private paymentService: PaymentService, private formBuilder: FormBuilder, private authService: AuthService) {}
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       if (params["carId"]) {
         this.carId = params["carId"]
-        this.customerId = 1;
-        this.getAvailableDate(this.carId);
+        this.customerId = this.authService.getUserId();
     }
+    this.createRentalForm();
+    this.createPaymentForm();
   })
 }
 
-  paymentForm = new FormGroup({
-    cardholderName: new FormControl(''),
-    cardNumber: new FormControl(''),
-    expirationDate: new FormControl(''),
-    securityCode: new FormControl(''),
-    rentDate: new FormControl(''),
-    returnDate: new FormControl('')
-  })
+  createPaymentForm () {
+    this.paymentForm = this.formBuilder.group({
+      cardholderName: ['', Validators.required],
+      cardNumber: ['', Validators.required],
+      expirationDate: ['', Validators.required],
+      securityCode: ['', Validators.required],
+    })
+  }
 
-  getAvailableDate(carId: number) {
-    this.rentalService.getAvailableDate(carId).subscribe(response => {
-      this.availableDate = new Date(response.data);
-      console.log(response);
+  createRentalForm () {
+    this.rentalForm = this.formBuilder.group({
+      carId: [this.carId, Validators.required],
+      userId: [this.customerId, Validators.required],
+      rentDate: ['', Validators.required],
+      returnDate: ['', Validators.required,],
     })
   }
 
   handleSubmit() {
-    if (new Date(this.paymentForm.value.rentDate!) < this.availableDate) {
-      this.toastrService.error("Lütfen uygun bir tarih seçiniz.", "Hatalı Tarih");
-      return;
-    }
+    let rental: Rental = Object.assign({}, this.rentalForm.value)
+    let payment: Payment = Object.assign({}, this.paymentForm.value)
 
-    let payment : Payment = {
-      cardholderName: this.paymentForm.value.cardholderName!,
-      cardNumber: this.paymentForm.value.cardNumber!,
-      expirationDate: this.paymentForm.value.expirationDate!,
-      securityCode: this.paymentForm.value.securityCode!,
-      rentDate: this.paymentForm.value.rentDate!,
-      returnDate: this.paymentForm.value.returnDate!,
-      customerId: 1,
-      carId: this.carId,
-    }
-
-    let rental: Rental = {
-      carId: this.carId,
-      customerId: this.customerId,
-      rentDate: this.paymentForm.value.rentDate!,
-      returnDate: this.paymentForm.value.returnDate!
-    }
-    
     this.paymentService.makePayment(payment).subscribe(response => {
       if (response.success) {
-        this.rentalService.addRental(rental, payment).subscribe(response => {
+        this.rentalService.addRental(rental).subscribe(response => {
           if (response.success) {
             this.toastrService.success(response.message);
-            
-          } else {
-            this.toastrService.error(response.message);
           }
-        })
+        }, errorResponse => {
+          this.toastrService.error(errorResponse.error.message);
+        } )
       } else {
         this.toastrService.error('Ödeme başarısız');
       }
     })
-    
+  }
+
+  resetForms() {
+    this.rentalForm.reset();
+    this.paymentForm.reset();
   }
 }

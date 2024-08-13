@@ -1,5 +1,23 @@
 <div class="payment-form">
     <!-- https://bbbootstrap.com/snippets/bootstrap-payment-option-form-tabs-23672340 -->
+    <form [formGroup]="rentalForm" class="my-5">
+        <div class="text-center">
+            <h5>Tarih Bilgileri</h5>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6 mb-3">
+                <label for="rentDate" class="form-label">Başlangıç Tarihi</label>
+                <input type="date" class="form-control" id="rentDate" formControlName="rentDate" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="returnDate" class="form-label">Bitiş Tarihi</label>
+                <input type="date" class="form-control" id="returnDate" formControlName="returnDate" required>
+            </div>
+        </div>
+    </form>
+    <div class="text-center">
+        <h5>Kart Bilgileri</h5>
+    </div>
     <div class="tabs mt-3">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation"> <a class="nav-link active" id="visa-tab" data-toggle="tab"
@@ -9,35 +27,14 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="visa" role="tabpanel" aria-labelledby="visa-tab">
                 <div class="mt-4">
-                    <div class="alert alert-primary" role="alert">
-                        Bu araç {{availableDate | date:'dd/MM/YYYY'}} tarihinden itibaren kiralanabilir.
-                    </div>
-                    <form [formGroup]="paymentForm" (ngSubmit)="handleSubmit()">
-                        <div class="text-center">
-                            <h5>Tarih Bilgileri</h5>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6 mb-3">
-                                <label for="rentDate" class="form-label">Başlangıç Tarihi</label>
-                                <input type="date" class="form-control" id="rentDate" formControlName="rentDate"
-                                    required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="returnDate" class="form-label">Bitiş Tarihi</label>
-                                <input type="date" class="form-control" id="returnDate" formControlName="returnDate"
-                                    required>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <h5>Kart Bilgileri</h5>
-                        </div>
+                    <form [formGroup]="paymentForm">
                         <div class="mb-3">
                             <label for="name" class="form-label">Kart Üzerindeki İsim</label>
                             <input type="text" class="form-control" id="name" formControlName="cardholderName" required>
                         </div>
                         <div class="mb-3">
                             <label for="cardNumber" class="form-label">Kart Numarası</label>
-                            <input type="tel" class="form-control" maxlength="16" id="cardNumber"
+                            <input type="tel" class="form-control" minlength="16" maxlength="16" id="cardNumber"
                                 formControlName="cardNumber" placeholder="---- ---- ---- ----" required>
                         </div>
                         <div class="row">
@@ -51,17 +48,17 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="cardNumber" class="form-label">CCV</label>
-                                    <input type="tel" class="form-control" id="cardNumber" name="securityCode"
-                                        minlength="3" maxlength="3" placeholder="---" formControlName="securityCode"
-                                        required>
+                                    <input type="tel" class="form-control" id="cardNumber" minlength="3" maxlength="3"
+                                        placeholder="---" formControlName="securityCode" required>
                                 </div>
                             </div>
                         </div>
-                        <div class="payment-buttons">
-                            <button type="reset" class="btn btn-secondary mt-5">Temizle</button>
-                            <button class="btn btn-success mt-5" [disabled]="!paymentForm.valid">Ödeme Yap</button>
-                        </div>
                     </form>
+                    <div class="payment-buttons">
+                        <button (click)="resetForms()" class="btn btn-secondary mt-5">Temizle</button>
+                        <button (click)="handleSubmit()" class="btn btn-success mt-5"
+                            [disabled]="!paymentForm.valid">Ödeme Yap</button>
+                    </div>
                 </div>
             </div>
         </div>

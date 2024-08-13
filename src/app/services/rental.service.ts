@@ -13,22 +13,22 @@ import { SingleResponseModel } from '../models/singleResponseModel';
 })
 export class RentalService {
 
-  apiUrl = "https://localhost:44321/api/Rentals/";
+  apiUrl = "https://localhost:44321/api/Rentals";
 
   constructor(private httpClient: HttpClient) { }
 
   getRentals(): Observable<ListResponseModel<RentalDetails>> {
-    let newPath = `${this.apiUrl}/getall`;
+    let newPath = `${this.apiUrl}/getalldetails`;
     return this.httpClient.get<ListResponseModel<RentalDetails>>(newPath);
   }
 
-  addRental(rental: Rental, payment: Payment): Observable<ResponseModel> {
-    let newPath = `${this.apiUrl}add`;
-    return this.httpClient.post<ResponseModel>(newPath, {'rental': rental, 'payment': payment});
+  addRental(rental: Rental): Observable<ResponseModel> {
+    let newPath = `${this.apiUrl}/add`;
+    return this.httpClient.post<ResponseModel>(newPath, rental);
   }
 
-  getAvailableDate(carId: number) : Observable<SingleResponseModel<string>> {
-    let newPath = `${this.apiUrl}getavailabledate?carId=${carId}`;
-    return this.httpClient.get<SingleResponseModel<string>>(newPath);
+  deleteRental(id: number) : Observable<ResponseModel> {
+    let newPath = `${this.apiUrl}?id=${id}`;
+    return this.httpClient.delete<ResponseModel>(newPath);
   }
 }

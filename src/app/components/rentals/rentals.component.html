@@ -1,0 +1,35 @@
+<h2 class="my-4">Kiralamalar</h2>
+<table class="table table-lg">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Marka</th>
+            <th scope="col">Ad Soyad</th>
+            <th scope="col">Kiralama Tarihi</th>
+            <th scope="col">Teslim Tarihi</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let rental of rentals">
+            <td>
+                {{rental.id}}
+            </td>
+            <td>
+                {{rental.brandName}}
+            </td>
+            <td>
+                {{rental.customerName}}
+            </td>
+            <td>
+                {{rental.rentDate | date}}
+            </td>
+            <td>
+                {{rental.returnDate | date}}
+            </td>
+            <td>
+                <button class="btn"><i class="bi bi-trash" (click)="deleteRental(rental.id)"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
