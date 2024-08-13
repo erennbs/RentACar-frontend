@@ -43,6 +43,7 @@ export class RegisterComponent {
         if (response.success) {
           this.toastrService.success('Başarıyla Kayıt olundu')
           localStorage.setItem('token', response.data.token)
+          window.location.reload();
         }
       }, responseError => {
         this.toastrService.error(responseError.error.message);

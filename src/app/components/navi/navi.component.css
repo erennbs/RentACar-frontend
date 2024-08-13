@@ -1,17 +1,37 @@
 nav {
-    background: chartreuse;
-    /* border-bottom: 1px solid gainsboro; */
+    background: #12372A;
 }
 
-.login {
+a {
+    color: white;
+}
+
+a.nav-link.active {
+    color: white;
+}
+
+.dropdown-toggle {
+    color: white;
+}
+
+.dropdown-toggle:hover {
+    color: white;
+}
+
+.dropdown-item {
+    color: black;
+}
+
+#login {
     height: 30px;
     width: 70px;
 }
 
-.register {
+#register {
     width: 70px;
     height: 30px;
-    background-color: white;
+    background-color: #FBFADA;
+    color: black;
     border-radius: 4px;
 }
 

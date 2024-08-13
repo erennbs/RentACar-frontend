@@ -28,6 +28,10 @@ export class NaviComponent {
     }
   }
 
+  checkIfAdmin() {
+    return this.authService.isAdmin();
+  }
+
   logout() {
     this.localStorageService.delete('token');
     this.logedIn = false;

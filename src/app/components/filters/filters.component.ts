@@ -23,6 +23,9 @@ export class FiltersComponent {
   colors: Color[] = [];
   selectedColor: string = "";
 
+  startDate: string;
+  endDate: string;
+
   constructor( private brandService: BrandService, private colorService: ColorService) {}
 
   ngOnInit(): void {

@@ -63,3 +63,8 @@ app-car-edit {
   display: flex;
   justify-content: center;
 }
+
+app-profile {
+  display: flex;
+  justify-content: center;
+}

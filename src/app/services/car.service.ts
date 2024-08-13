@@ -13,7 +13,7 @@ import { ResponseModel } from '../models/responseModel';
 export class CarService {
 
   apiUrl = "https://localhost:44321/api/Cars";
-  validFilters: string[] = ["brand", "color"];
+  validFilters: string[] = ["brand", "color", "startDate", "endDate"];
 
   constructor(private httpClient: HttpClient) { }
 

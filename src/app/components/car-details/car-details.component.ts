@@ -7,6 +7,7 @@ import { CarService } from '../../services/car.service';
 import { CarDetails } from '../../models/carDetails';
 import { ToastrService } from 'ngx-toastr';
 import { ImagePathPipe } from '../../pipes/image-path.pipe';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-car-details',
@@ -22,7 +23,7 @@ export class CarDetailsComponent {
   dataLoaded: boolean = false;
 
   constructor(private imageService: ImageService, private carService: CarService, private activatedRoute: ActivatedRoute,
-    private toastrService: ToastrService, private router: Router) {}
+    private toastrService: ToastrService, private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -64,5 +65,9 @@ export class CarDetailsComponent {
         })  
       }
     })
+  }
+
+  checkIfAdmin() {
+    return this.authService.isAdmin();
   }
 }

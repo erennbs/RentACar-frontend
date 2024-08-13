@@ -63,9 +63,11 @@ export class CarsComponent {
   }
 
   filterCars() {
-    // this.cars = [] 
-    
-    this.carService.getCarsFiltered({"brand": this.filtersComponent.selectedBrand, "color": this.filtersComponent.selectedColor}).subscribe(response => {
+    this.carService.getCarsFiltered({
+      "brand": this.filtersComponent.selectedBrand, 
+      "color": this.filtersComponent.selectedColor, 
+      "startDate": this.filtersComponent.startDate, 
+      "endDate": this.filtersComponent.endDate }).subscribe(response => {
       this.cars = response.data;
     })
   }

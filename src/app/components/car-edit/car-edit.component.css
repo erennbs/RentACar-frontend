@@ -27,3 +27,8 @@
     border: 1px solid gainsboro;
     cursor: pointer;
 }
+
+.update {
+    background-color: #436850;
+    color: white;
+}

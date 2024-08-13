@@ -1,7 +1,7 @@
 #filters {
     display: flex;
     align-items: center;
-    width: 700px;
+    width: 1000px;
     gap: 50px;
 }
 
@@ -9,4 +9,14 @@
     display: flex;
     gap: 20px;
     align-self: flex-end;
+}
+
+.filter {
+    background-color: #436850;
+    color: white;
+}
+
+.reset {
+    background-color: #ADBC9F;
+    color: white;
 }

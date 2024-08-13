@@ -13,8 +13,16 @@
             <option *ngFor="let color of colors" value="{{color.name}}">{{color.name}}</option>
         </select>
     </div>
+    <div>
+        <label for="startDate">Kiralama Tarihi:</label>
+        <input [(ngModel)]="startDate" type="date" id="startDate">
+    </div>
+    <div>
+        <label for="endDate">Teslim Tarihi:</label>
+        <input [(ngModel)]="endDate" type="date" id="endDate">
+    </div>
     <div class="buttons">
-        <button (click)="handleFilter()" class="btn btn-success">Filtrele</button>
-        <button (click)="handleReset()" class="btn btn-secondary">Sıfırla</button>
+        <button (click)="handleFilter()" class="btn filter">Filtrele</button>
+        <button (click)="handleReset()" class="btn reset">Sıfırla</button>
     </div>
 </div>

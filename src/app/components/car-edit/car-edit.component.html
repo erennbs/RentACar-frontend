@@ -1,5 +1,5 @@
 <div id="car-edit-holder">
-    <h2>Araç Düzenle</h2>
+    <h2 class="mt-5">Araç Düzenle</h2>
     <form *ngIf="carEditForm" [formGroup]="carEditForm">
         <div class="mb-3">
             <label for="name" class="form-label">Araç Adı</label>
@@ -40,6 +40,6 @@
         </div>
     </form>
     <div class="buttons">
-        <button (click)="editCar()" class="btn btn-primary">Güncelle</button>
+        <button (click)="editCar()" class="btn update">Güncelle</button>
     </div>
 </div>

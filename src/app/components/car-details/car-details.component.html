@@ -37,9 +37,9 @@
             </div>
         </div>
         <div class="button-holder">
-            <button class="btn" (click)="deleteCar()"><i class="bi bi-trash"></i></button>
-            <button routerLink="edit" class="btn"><i class="bi bi-pencil-square"></i></button>
-            <button routerLink="rent" class="btn btn-success w-100">Kirala</button>
+            <button *ngIf="checkIfAdmin()" class="btn" (click)="deleteCar()"><i class="bi bi-trash"></i></button>
+            <button *ngIf="checkIfAdmin()" routerLink="edit" class="btn"><i class="bi bi-pencil-square"></i></button>
+            <button routerLink="rent" class="btn btn-success w-100 rent">Kirala</button>
         </div>
     </div>
 </div>

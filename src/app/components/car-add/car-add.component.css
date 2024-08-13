@@ -10,3 +10,8 @@
     display: flex;
     gap: 20px;
 }
+
+.add {
+    background-color: #436850;
+    color: white;
+}

@@ -10,12 +10,26 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" routerLink="cars">Araçlar</a>
                 </li>
+                <li *ngIf="checkIfAdmin()" class="nav-item">
+                    <a class="nav-link active" aria-current="page" routerLink="cars/add">Araç Ekle</a>
+                </li>
+                <li *ngIf="checkIfAdmin()" class="nav-item">
+                    <a class="nav-link active" aria-current="page" routerLink="brands">Markalar</a>
+                </li>
+                <li *ngIf="checkIfAdmin()" class="nav-item">
+                    <a class="nav-link active" aria-current="page" routerLink="colors">Renkler</a>
+                </li>
+                <li *ngIf="checkIfAdmin()" class="nav-item">
+                    <a class="nav-link active" aria-current="page" routerLink="rentals">Kiralamalar</a>
+                </li>
             </ul>
 
 
-            <a *ngIf="!logedIn" class="nav-link active d-flex align-items-center justify-content-center ms-auto login"
+            <a *ngIf="!logedIn" id="login"
+                class="nav-link active d-flex align-items-center justify-content-center ms-auto"
                 routerLink="login">Giriş Yap</a>
-            <a *ngIf="!logedIn" class="nav-link active d-flex align-items-center justify-content-center ms-3 register"
+            <a *ngIf="!logedIn" id="register"
+                class="nav-link active d-flex align-items-center justify-content-center ms-3"
                 routerLink="register">Kayıt Ol</a>
 
             <div *ngIf="logedIn" class="dropdown">
@@ -23,7 +37,7 @@
                     {{payload!.name}}
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item">Profil</a></li>
+                    <li><a class="dropdown-item" routerLink="profile">Profil</a></li>
                     <li><a class="dropdown-item" (click)="logout()">Çıkış</a></li>
                 </ul>
             </div>
