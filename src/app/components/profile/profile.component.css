@@ -1,0 +1,9 @@
+.profile-holder {
+    display: flex;
+    flex-direction: column;
+}
+
+.submit {
+    background-color: #12372A;
+    color: white;
+}

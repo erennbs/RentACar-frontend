@@ -43,12 +43,32 @@ export class AuthService {
     return false;
   }
 
+  isAdmin() : boolean{
+    if (this.localStorageService.get('token')) {
+      let claims = this.getUserClaims();
+      if (claims!['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']) {
+        
+        let roles = claims!['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'].split(',');
+        if (roles.includes('admin')) {
+          return true
+        }
+        return false
+        
+      }  
+    }
+    return false;
+  }
+
   getUserClaims() : TokenPayloadModel | undefined{
     if (this.localStorageService.get('token')) {
       let claims = jwtDecode<TokenPayloadModel>(this.localStorageService.get('token')!)
       return claims;
     }
     return 
+  }
+
+  getUserId() {
+    return Number(this.getUserClaims()!.nameid)
   }
 
   setLogedIn(logedIn: boolean) {

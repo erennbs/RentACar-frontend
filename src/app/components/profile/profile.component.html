@@ -1,0 +1,16 @@
+<div class="profile-holder w-50">
+    <h2 class="mt-5">Kullanıcı Bilgileri</h2>
+    <form class="mt-5" *ngIf="userForm" [formGroup]="userForm">
+        <div class="row">
+            <div class="mb-3 col-md">
+                <label for="firstName" class="form-label"><strong>Ad</strong></label>
+                <input type="text" class="form-control" id="firstName" formControlName="firstName">
+            </div>
+            <div class="mb-3 col-md">
+                <label for="lastName" class="form-label"><strong>Soyad</strong></label>
+                <input type="text" class="form-control" id="lastName" formControlName="lastName">
+            </div>
+        </div>
+    </form>
+    <button class="btn align-self-end submit" (click)="editUser()">Kaydet</button>
+</div>
