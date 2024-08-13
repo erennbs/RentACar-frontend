@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BrandService } from '../../services/brand.service';
 import { ColorService } from '../../services/color.service';
 import { ImageService } from '../../services/image.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-car-add',
@@ -19,14 +20,13 @@ import { ImageService } from '../../services/image.service';
 export class CarAddComponent {
   colors: Color[];
   brands: Brand[];
-  files: File[]
+  files: File[] = []
 
   carAddForm: FormGroup
 
   constructor(private carService: CarService, private imageService: ImageService, private formBuilder: FormBuilder, 
-    private toastrService: ToastrService,
-    private brandService: BrandService, 
-    private colorService: ColorService
+    private toastrService: ToastrService, private brandService: BrandService, private colorService: ColorService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -66,6 +66,7 @@ export class CarAddComponent {
           if (this.files.length > 0) {
             this.addImages(response.data.id);
           }
+          this.router.navigateByUrl('cars')
         } else {
           this.toastrService.error(response.message, "Hata");
         }

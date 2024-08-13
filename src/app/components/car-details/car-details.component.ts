@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ImageService } from '../../services/image.service';
 import { Image } from '../../models/image';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CarService } from '../../services/car.service';
 import { CarDetails } from '../../models/carDetails';
@@ -22,7 +22,7 @@ export class CarDetailsComponent {
   dataLoaded: boolean = false;
 
   constructor(private imageService: ImageService, private carService: CarService, private activatedRoute: ActivatedRoute,
-    private toastrService: ToastrService) {}
+    private toastrService: ToastrService, private router: Router) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -57,6 +57,7 @@ export class CarDetailsComponent {
         this.carService.deleteCar(this.currentCar.id).subscribe(response => {
           if (response.success) {
             this.toastrService.success('Araç başarıyla silindi', 'Silme Başarılı');
+            this.router.navigateByUrl('cars')
           } else {
             this.toastrService.error('Araç silinirken bir hata oluştu', 'Silme Başarısız');
           }

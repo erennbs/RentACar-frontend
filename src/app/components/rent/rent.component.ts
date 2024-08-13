@@ -6,6 +6,7 @@ import { RentalService } from '../../services/rental.service';
 import { Rental } from '../../models/rental';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { PaymentService } from '../../services/payment.service';
 
 @Component({
   selector: 'app-rent',
@@ -19,9 +20,9 @@ export class RentComponent {
   customerId: number;
   availableDate: Date;
 
-  constructor(private activatedRoute: ActivatedRoute, 
-              private rentalService: RentalService,
-              private toastrService: ToastrService) {}
+  constructor(private activatedRoute: ActivatedRoute, private rentalService: RentalService, private toastrService: ToastrService,
+    private paymentService: PaymentService
+  ) {}
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -72,11 +73,21 @@ export class RentComponent {
       rentDate: this.paymentForm.value.rentDate!,
       returnDate: this.paymentForm.value.returnDate!
     }
-
-    console.log(rental);
-     
-    this.rentalService.addRental(rental, payment).subscribe(response => {
-      console.log(response.message)
+    
+    this.paymentService.makePayment(payment).subscribe(response => {
+      if (response.success) {
+        this.rentalService.addRental(rental, payment).subscribe(response => {
+          if (response.success) {
+            this.toastrService.success(response.message);
+            
+          } else {
+            this.toastrService.error(response.message);
+          }
+        })
+      } else {
+        this.toastrService.error('Ödeme başarısız');
+      }
     })
+    
   }
 }
